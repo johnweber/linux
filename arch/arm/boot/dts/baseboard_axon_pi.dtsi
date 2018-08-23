@@ -1,0 +1,167 @@
+/*
+ * Copyright 2018 Technexion Ltd.
+ *
+ * Author: Tapani Utriainen <tapani@technexion.com>
+ *         Richard Hu <richard.hu@technexion.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+ */
+
+#include <tnmacro.h>
+
+/ {
+	gpio-axon {
+  	compatible = "gpio-axon";
+
+    /* 40-pin expansion */
+
+    gpio_x1_p19 {
+			label = "gpio_x1_p19";
+			gpios = <&AXON_EXT_GPIO_X1_P19 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p21 {
+			label = "gpio_x1_p21";
+			gpios = <&AXON_EXT_GPIO_X1_P21 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p72 {
+			label = "gpio_x1_p72";
+			gpios = <&AXON_EXT_GPIO_X1_P72 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p74 {
+			label = "gpio_x1_p74";
+			gpios = <&AXON_EXT_GPIO_X1_P74 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p76 {
+			label = "gpio_x1_p76";
+			gpios = <&AXON_EXT_GPIO_X1_P76 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p78 {
+			label = "gpio_x1_p78";
+			gpios = <&AXON_EXT_GPIO_X1_P78 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p80 {
+			label = "gpio_x1_p80";
+			gpios = <&AXON_EXT_GPIO_X1_P80 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x2_p79 {
+			label = "gpio_x2_p79";
+			gpios = <&AXON_EXT_GPIO_X2_P79 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+	};
+
+/*
+	sound {
+		compatible = "fsl,imx-sgtl5000",
+			     "fsl,imx-audio-sgtl5000";
+		model = "audio-sgtl5000";
+		ssi-controller = <&PICO_AUDA_I2S_CHANNEL>;
+		audio-codec = <&codec>;
+		audio-routing =
+			"MIC_IN", "Mic Jack",
+			"Mic Jack", "Mic Bias",
+			"Headphone Jack", "HP_OUT";
+#if defined(PICO_AUDA_MUX_INT) && defined(PICO_AUDA_MUX_EXT)
+		mux-int-port = <PICO_AUDA_MUX_INT>;
+		mux-ext-port = <PICO_AUDA_MUX_EXT>;
+#else
+		fsl,no-audmux = "true";
+#endif
+	}; */
+
+/* GPIO led */
+	gpio-leds {
+		compatible = "gpio-leds";
+    led {
+			label = "gpio-led";
+			gpios = <&AXON_EXT_GPIO_X1_P70 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+	};
+
+	clocks {
+		codec_osc: aud_mclk {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <24576000>;
+		};
+	};
+};
+
+&AXON_I2C_A {
+	status = "okay";
+};
+
+&AXON_I2C_B {
+  status = "okay";
+	ov5645_mipi: ov5645_mipi@3c {
+		compatible = "ovti,ov5645_mipi";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_mipi_csi>;
+		reg = <0x3c>;
+		clocks = <&clks 200>;
+		clock-names = "csi_mclk";
+		DOVDD-supply = <&reg_2p5v>;
+		AVDD-supply = <&reg_2p5v>;
+		DVDD-supply = <&reg_1p8v>;
+		pwn-gpios = <&AXON_EXT_GPIO_X3_P67 GPIO_ACTIVE_HIGH>;
+		rst-gpios = <&AXON_EXT_GPIO_X3_P65 GPIO_ACTIVE_LOW>;
+		ipu_id = <0>;
+		csi_id = <0>;
+		mclk = <24000000>;
+		mclk_source = <0>;
+	};
+};
+
+&AXON_I2C_C {
+	status = "okay";
+};
+
+&AXON_I2C_D {
+	status = "okay";
+};
+
+&AXON_I2C_BRD_CONF {
+	status = "okay";
+
+	eeprom_baseboard: eeprom@51 {
+		compatible = "at,24c02";
+		reg = <0x51>;
+	};
+};
+
+&AXON_CAN_A {
+	status = "okay";
+};
+
+&AXON_CAN_B {
+	status = "okay";
+};
+
+&AXON_SPI_A {
+	status = "okay";
+
+	spidev@1 {
+		compatible = "rohm,dh2228fv";
+		spi-max-frequency = <60000000>;
+		reg = <0>;
+	};
+};
