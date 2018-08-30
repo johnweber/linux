@@ -261,13 +261,13 @@
 	status = "okay";
 };
 
-&i2c1 {
+&AXON_I2C_A {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c1>;
 	status = "okay";
 };
 
-&i2c2 {
+&AXON_I2C_B {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c2>;
 	status = "okay";
@@ -277,6 +277,7 @@
 		reg = <0x50>;
 	};
 
+/*
 	// OK but needs to move to baseboard dtsi
 	ov5645_mipi: ov5645_mipi@3c {
 		compatible = "ovti,ov5645_mipi";
@@ -295,9 +296,10 @@
 		mclk = <24000000>;
 		mclk_source = <0>;
 	};
+*/
 };
 
-&i2c3 {
+&AXON_I2C_C {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c3>;
 	status = "okay";

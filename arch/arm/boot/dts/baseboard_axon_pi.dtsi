@@ -68,24 +68,41 @@
 
 	};
 
-/*
-	sound {
-		compatible = "fsl,imx-sgtl5000",
-			     "fsl,imx-audio-sgtl5000";
-		model = "audio-sgtl5000";
-		ssi-controller = <&PICO_AUDA_I2S_CHANNEL>;
+	sound: sound {
+		compatible = "fsl,imx-audio-wm8960";
+		model = "wm8960-audio";
+		cpu-dai = <&AXON_AUD_A_I2S_CHANNEL>;
 		audio-codec = <&codec>;
+		asrc-controller = <&asrc>;
+		codec-master;
+		//gpr = <&gpr 4 0x100000 0x100000>;
+		/*
+                 * hp-det = <hp-det-pin hp-det-polarity>;
+		 * hp-det-pin: JD1 JD2  or JD3
+		 * hp-det-polarity = 0: hp detect high for headphone
+		 * hp-det-polarity = 1: hp detect high for speaker
+		 */
+		hp-det = <3 0>;  /* JD3, Headphone */
+		hp-det-gpios = <&AXON_EXT_GPIO_X2_P43 0>;
+		mic-det-gpios = <&AXON_EXT_GPIO_X2_P43 0>;
 		audio-routing =
-			"MIC_IN", "Mic Jack",
-			"Mic Jack", "Mic Bias",
-			"Headphone Jack", "HP_OUT";
-#if defined(PICO_AUDA_MUX_INT) && defined(PICO_AUDA_MUX_EXT)
-		mux-int-port = <PICO_AUDA_MUX_INT>;
-		mux-ext-port = <PICO_AUDA_MUX_EXT>;
-#else
-		fsl,no-audmux = "true";
-#endif
-	}; */
+			"Headphone Jack", "HP_L",
+			"Headphone Jack", "HP_R",
+			"Ext Spk", "SPK_LP",
+			"Ext Spk", "SPK_LN",
+			"Ext Spk", "SPK_RP",
+			"Ext Spk", "SPK_RN",
+			"LINPUT2", "Mic Jack",
+			"LINPUT3", "Mic Jack",
+			"RINPUT1", "Main MIC",
+			"RINPUT2", "Main MIC",
+			"Mic Jack", "MICB",
+			"Main MIC", "MICB",
+			"CPU-Playback", "ASRC-Playback",
+			"Playback", "CPU-Playback",
+			"ASRC-Capture", "CPU-Capture",
+			"CPU-Capture", "Capture";
+	};
 
 /* GPIO led */
 	gpio-leds {
@@ -98,7 +115,7 @@
 	};
 
 	clocks {
-		codec_osc: aud_mclk {
+		codec_osc: aud_mclk {  /* Note - on AXON pi rev 0.1 MCLK comes from external osc */
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
 			clock-frequency = <24576000>;
@@ -108,6 +125,14 @@
 
 &AXON_I2C_A {
 	status = "okay";
+
+	codec: wm8960@1a {
+		compatible = "wlf,wm8960";
+		reg = <0x1a>;
+		//clocks = <&clks IMX7D_AUDIO_MCLK_ROOT_CLK>;  /* Note on AXON-PI the clock is external osc */
+		//clock-names = "mclk";
+		wlf,shared-lrclk;
+	};
 };
 
 &AXON_I2C_B {
