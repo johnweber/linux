@@ -60,7 +60,7 @@
 #define AXON_PCIE_A pcie
 
 /* audio codec */
-#define AXON_AUD_A_I2S_CHANNEL ssi3
+#define AXON_AUD_A_I2S_CHANNEL ssi1
 #define AXON_AUD_A_MUX_INT 1
 #define AXON_AUD_A_MUX_EXT 3
 
@@ -702,7 +702,7 @@
 	status = "okay";
 };
 
-&ssi1 {
+&AXON_AUD_A_I2S_CHANNEL {
 	status = "okay";
 };
 
