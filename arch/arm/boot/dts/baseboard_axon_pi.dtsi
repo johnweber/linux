@@ -120,7 +120,7 @@
 		codec_osc: aud_mclk {  /* Note - on AXON pi rev 0.1 MCLK comes from external osc */
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
-			clock-frequency = <24576000>;
+			clock-frequency = <24000000>;
 		};
 	};
 };
@@ -131,7 +131,7 @@
 	codec: wm8960@1a {
 		compatible = "wlf,wm8960";
 		reg = <0x1a>;
-		clocks = <&codec_osc>;  /* Note on AXON-PI the clock is external osc */
+		clocks = <&clks IMX6QDL_CLK_CKO>;  /* Note: This is a dummy.  on AXON-PI the clock is external osc */
 		clock-names = "mclk";
 		wlf,shared-lrclk;
 	};
