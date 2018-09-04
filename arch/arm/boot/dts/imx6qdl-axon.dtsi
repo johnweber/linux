@@ -57,6 +57,10 @@
 #define AXON_I2C_D_SCL 	      gpio6 9  /* NANDF_WP_B */
 #define AXON_I2C_D_SDA        gpio6 16 /* NANDF_CS3 */
 
+#define AXON_INT_GPIO_WL_REG_ON   gpio7 13 /* GPIO_18 */
+#define AXON_INT_GPIO_SDIO_REG_ON gpio1  4 /* GPIO_4  */
+#define AXON_INT_GPIO_BT_REG_ON   gpio7 12 /* GPIO_17 */
+
 #define AXON_PCIE_A pcie
 
 /* audio codec */
@@ -139,8 +143,9 @@
 			regulator-min-microvolt = <5000000>;
 			regulator-max-microvolt = <5000000>;
 			regulator-name = "wlreg_on";
-			gpio = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+			gpio = <&AXON_INT_GPIO_WL_REG_ON GPIO_ACTIVE_HIGH>;
 			enable-active-high;
+			regulator-always-on;
 		};
 	};
 
@@ -754,7 +759,7 @@
 	no-1-8-v;
 	keep-power-in-suspend;
 	non-removable;
-	cd-post;
+	//cd-post;
 	pm-ignore-notify;
 	wifi-host;
 	status = "okay";
