@@ -293,27 +293,6 @@
 		compatible = "fsl,imx6-hdmi-i2c";
 		reg = <0x50>;
 	};
-
-/*
-	// OK but needs to move to baseboard dtsi
-	ov5645_mipi: ov5645_mipi@3c {
-		compatible = "ovti,ov5645_mipi";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_mipi_csi>;
-		reg = <0x3c>;
-		clocks = <&clks 200>;
-		clock-names = "csi_mclk";
-		DOVDD-supply = <&reg_2p5v>;
-		AVDD-supply = <&reg_2p5v>;
-		DVDD-supply = <&reg_1p8v>;
-		pwn-gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
-		rst-gpios = <&gpio4 5 GPIO_ACTIVE_LOW>;
-		ipu_id = <0>;
-		csi_id = <0>;
-		mclk = <24000000>;
-		mclk_source = <0>;
-	};
-*/
 };
 
 &AXON_I2C_C {
