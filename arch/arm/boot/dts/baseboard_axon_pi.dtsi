@@ -106,11 +106,11 @@
 #endif
 	};
 
-/* GPIO led */
-	gpio-leds {
+	/* User LED */
+	user-led {
 		compatible = "gpio-leds";
-    led {
-			label = "gpio-led";
+		led {
+			label = "user-led";
 			gpios = <&AXON_EXT_GPIO_X1_P70 GPIO_ACTIVE_HIGH>;
 			dir   = "out";
 		};

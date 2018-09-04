@@ -60,6 +60,7 @@
 #define AXON_INT_GPIO_WL_REG_ON   gpio7 13 /* GPIO_18 */
 #define AXON_INT_GPIO_SDIO_REG_ON gpio1  4 /* GPIO_4  */
 #define AXON_INT_GPIO_BT_REG_ON   gpio7 12 /* GPIO_17 */
+#define AXON_INT_GPIO_SOC_STATUS_LED gpio6 14 /* NANDF_CS1 */
 
 #define AXON_PCIE_A pcie
 
@@ -257,6 +258,17 @@
 		status = "okay";
 
 	};
+
+	/* SOC Status LED */
+	soc-status-led {
+		compatible = "gpio-leds";
+		led {
+			label = "soc-status-led";
+			gpios = <&AXON_INT_GPIO_SOC_STATUS_LED GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+	};
+
 };
 
 
