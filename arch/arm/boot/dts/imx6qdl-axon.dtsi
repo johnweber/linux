@@ -33,6 +33,7 @@
 #define AXON_EXT_GPIO_X2_P24 gpio5 20 /* CSI0_DATA_EN */
 
 #define AXON_EXT_GPIO_X2_P43 gpio5 5  /* DISP0_DAT11 */
+#define AXON_EXT_GPIO_X2_P32 gpio2 14 /* SD4_DAT6 */
 
 #define AXON_EXT_GPIO_X2_P79 gpio1 1  /* GPIO_1 */
 
@@ -76,9 +77,17 @@
 #define AXON_I2C_D i2c_gpio_d
 #define AXON_I2C_BRD_CONF i2c_gpio_brd_conf
 
-#define AXON_SPI_A ecspi2
-#define AXON_SPI_B ecspi1
+/* UARTs */
+#define AXON_UART_A 	uart1
+#define AXON_UART_B 	uart2
+#define AXON_UART_C 	uart4
+#define AXON_UART_BT 	uart5
 
+/* SPI */
+#define AXON_SPI_A ecspi2
+#define AXON_SPI_B ecspi4
+
+/* CAN */
 #define AXON_CAN_A can1
 #define AXON_CAN_B can2
 
@@ -229,7 +238,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_i2c_brd_conf>;
+		pinctrl-0 = <&pinctrl_axon_i2c_brd_conf>;
 		gpios = <
 			&AXON_I2C_BRD_CONF_SDA GPIO_ACTIVE_HIGH /* SDA */
 			&AXON_I2C_BRD_CONF_SCL GPIO_ACTIVE_HIGH /* SCL */
@@ -248,7 +257,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_i2c4>;
+		pinctrl-0 = <&pinctrl_axon_i2c_d>;
 		gpios = <
 			&AXON_I2C_D_SDA GPIO_ACTIVE_HIGH /* SDA */
 			&AXON_I2C_D_SCL GPIO_ACTIVE_HIGH /* SCL */
@@ -280,13 +289,13 @@
 
 &AXON_I2C_A {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_i2c1>;
+	pinctrl-0 = <&pinctrl_axon_i2c_a>;
 	status = "okay";
 };
 
 &AXON_I2C_B {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_i2c2>;
+	pinctrl-0 = <&pinctrl_axon_i2c_b>;
 	status = "okay";
 
 	hdmi_edid: edid@50 {
@@ -297,7 +306,7 @@
 
 &AXON_I2C_C {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_i2c3>;
+	pinctrl-0 = <&pinctrl_axon_i2c_c>;
 	status = "okay";
 };
 
@@ -360,7 +369,7 @@
 			>;
 		};
 
-		pinctrl_ecspi2: ecspi2grp {
+		pinctrl_axon_spi_a: ecspi2grp {
 			fsl,pins = <
 				MX6QDL_PAD_EIM_OE__ECSPI2_MISO		0x1b0b1   /* SPI_A_MISO */
 				MX6QDL_PAD_EIM_CS1__ECSPI2_MOSI		0x1b0b1   /* SPI_A_MOSI */
@@ -370,7 +379,7 @@
 			>;
 		};
 
-		pinctrl_ecspi1: ecspi4grp {
+		pinctrl_axon_spi_b: ecspi4grp {
 			fsl,pins = <
 				MX6QDL_PAD_EIM_D22__ECSPI4_MISO		0x100b1   /* SPI_B_MISO, not connected correctly on rev 0.1 */
 				MX6QDL_PAD_EIM_D28__ECSPI4_MOSI		0x100b1   /* SPI_B_MOSI */
@@ -401,35 +410,35 @@
 			>;
 		};
 
-		pinctrl_i2c1: i2c1grp {
+		pinctrl_axon_i2c_a: i2c1grp {
 			fsl,pins = <
 				MX6QDL_PAD_CSI0_DAT9__I2C1_SCL 		0x4001b8b1  /* I2C_A_SCL */
 				MX6QDL_PAD_CSI0_DAT8__I2C1_SDA 		0x4001b8b1  /* I2C_A_SDA */
 			>;
 		};
 
-		pinctrl_i2c2: i2c2grp {
+		pinctrl_axon_i2c_b: i2c2grp {
 			fsl,pins = <
 				MX6QDL_PAD_KEY_COL3__I2C2_SCL		0x4001b8b1    /* I2C_B_SCL */
 				MX6QDL_PAD_EIM_D16__I2C2_SDA		0x4001b8b1    /* I2C_B_SDA */
 			>;
 		};
 
-		pinctrl_i2c3: i2c3grp {
+		pinctrl_axon_i2c_c: i2c3grp {
 			fsl,pins = <
 				MX6QDL_PAD_EIM_D17__I2C3_SCL		0x4001b8b1    /* I2C_C_SCL */
 				MX6QDL_PAD_EIM_D18__I2C3_SDA		0x4001b8b1    /* I2C_C_SDA */
 			>;
 		};
 
-		pinctrl_i2c4: i2c4grp {
+		pinctrl_axon_i2c_d: i2c4grp {
 			fsl,pins = <
 				MX6QDL_PAD_NANDF_WP_B__GPIO6_IO09	0x4001b8b1  /* I2C_D_SCL, bitbang */
 				MX6QDL_PAD_NANDF_CS3__GPIO6_IO16	0x4001b8b1  /* I2C_D_SDA, bitbang */
 			>;
 		};
 
-		pinctrl_i2c_brd_conf: i2cbrdconfgrp {
+		pinctrl_axon_i2c_brd_conf: i2cbrdconfgrp {
 			fsl,pins = <
 				MX6QDL_PAD_NANDF_D0__GPIO2_IO00	    0x4001b8b1  /* BRD_CONF_SCL, bitbang */
 				MX6QDL_PAD_NANDF_D1__GPIO2_IO01 	0x4001b8b1  /* BRD_CONF_SDA, bitbang */
@@ -494,14 +503,30 @@
 			>;
 		};
 
-		pinctrl_uart1: uart1grp {
+                pinctrl_axon_uart_a: uart1grp {
+                        fsl,pins = <
+                                MX6QDL_PAD_CSI0_DAT10__UART1_TX_DATA    0x1b0b1 /* UART_A_TXD */
+                                MX6QDL_PAD_CSI0_DAT11__UART1_RX_DATA    0x1b0b1 /* UART_A_RXD */
+                        >;
+                };
+
+		pinctrl_axon_uart_a_rtscts: uart1rtsctsgrp {
 			fsl,pins = <
 				MX6QDL_PAD_CSI0_DAT10__UART1_TX_DATA	0x1b0b1 /* UART_A_TXD */
 				MX6QDL_PAD_CSI0_DAT11__UART1_RX_DATA	0x1b0b1 /* UART_A_RXD */
+				MX6QDL_PAD_EIM_D20__UART1_RTS_B         0x1b0b1 /* UART_A_RTS */
+				MX6QDL_PAD_EIM_D19__UART1_CTS_B		0x1b0b1 /* UART_A_CTS */
 			>;
 		};
 
-		pinctrl_uart2: uart2grp {
+                pinctrl_axon_uart_b: uart2grp {
+                        fsl,pins = <
+                                MX6QDL_PAD_SD4_DAT4__UART2_RX_DATA      0x1b0b1   /* UART_B_RXD */
+                                MX6QDL_PAD_SD4_DAT7__UART2_TX_DATA      0x1b0b1   /* UART_B_TXD */
+                        >;
+                };
+
+		pinctrl_axon_uart_b_rtscts: uart2rtsctsgrp {
 			fsl,pins = <
 				MX6QDL_PAD_SD4_DAT4__UART2_RX_DATA	0x1b0b1   /* UART_B_RXD */
 				MX6QDL_PAD_SD4_DAT5__UART2_RTS_B	0x1b0b1     /* UART_B_RTS */
@@ -510,7 +535,14 @@
 			>;
 		};
 
-		pinctrl_uart4: uart4grp {
+                pinctrl_axon_uart_c: uart4grp {
+                        fsl,pins = <
+                                MX6QDL_PAD_CSI0_DAT13__UART4_TX_DATA    0x1b0b1 /* UART_C_TXD */
+                                MX6QDL_PAD_CSI0_DAT12__UART4_RX_DATA    0x1b0b1 /* UART_C_RXD */
+                        >;
+                };
+
+		pinctrl_axon_uart_c_rtscts: uart4rtsctsgrp {
 			fsl,pins = <
 				MX6QDL_PAD_CSI0_DAT13__UART4_TX_DATA	0x1b0b1 /* UART_C_TXD */
 				MX6QDL_PAD_CSI0_DAT12__UART4_RX_DATA	0x1b0b1 /* UART_C_RXD */
@@ -519,7 +551,7 @@
 			>;
 		};
 
-		pinctrl_uart5: uart5grp {
+		pinctrl_axon_uart_bt: uart5grp {
 			fsl,pins = <
 				MX6QDL_PAD_CSI0_DAT15__UART5_TX_DATA	0x1b0b1 /* UART_BT_TXD */
 				MX6QDL_PAD_CSI0_DAT14__UART5_RX_DATA  0x1b0b1 /* UART_BT_RXD */
@@ -592,6 +624,12 @@
 				MX6QDL_PAD_GPIO_6__GPIO1_IO06		0x0b0b0		/* ov5640 mipi powerdown */
 				MX6QDL_PAD_GPIO_19__GPIO4_IO05	0x0b0b0		/* ov5640 mipi reset */
 				MX6QDL_PAD_GPIO_3__CCM_CLKO2		0x000b0		/* ov5640 mclk */
+			>;
+		};
+
+		pinctrl_gpio_x2_p32: gpiox2p32 {
+			fsl,pins = <
+				MX6QDL_PAD_SD4_DAT6__GPIO2_IO14		0x1b0b1
 			>;
 		};
 	};
@@ -702,22 +740,27 @@
 	status = "okay";
 };
 
-&uart1 {
+&AXON_UART_A {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart1>;
+	pinctrl-0 = <&pinctrl_axon_uart_a>;
 	status = "okay";
 };
 
-&uart2 {  /* Bluetooth module */
+&AXON_UART_B {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart2>;
-	fsl,uart-has-rtscts;
-	status = "okay";
+	pinctrl-0 = <&pinctrl_axon_uart_b>;
+	status = "disabled";
 };
 
-&uart4 {
+&AXON_UART_C {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart4>;
+	pinctrl-0 = <&pinctrl_axon_uart_c>;
+	status = "disabled";
+};
+
+&AXON_UART_BT {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_axon_uart_bt>;
 	fsl,uart-has-rtscts;
 	status = "okay";
 };
@@ -738,8 +781,8 @@
 &usdhc1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_usdhc1>;
-	bus-width = <8>;
-	cd-gpios = <&gpio3 9 GPIO_ACTIVE_LOW>;
+	bus-width = <4>;
+	cd-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
 	status = "okay";
 };
 
@@ -759,13 +802,11 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_usdhc3>;
 	bus-width = <8>;
-	cd-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+	//cd-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
 	// uncomment the following when ready to check eMMC
-	/*
 	non-removable;
-	cd-post;
+	//cd-post;
 	pm-ignore-notify;
-	*/
 	status = "okay";
 };
 
@@ -773,21 +814,28 @@
 	status = "okay";
 };
 
-&ecspi2 {
+&AXON_SPI_A {
 	fsl,spi-num-chipselects = <1>;
 	cs-gpios = <&gpio2 27 0>, /* CS0 */
 	           <&gpio2 26 0>; /* CS1 */
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_ecspi2>;
+	pinctrl-0 = <&pinctrl_axon_spi_a>;
 	status = "okay";
 };
+/*
+&AXON_SPI_B {
+	status = "disabled";
+};
+*/
 
-&can1 {
+&AXON_CAN_A {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan1>;
+	status = "disabled";
 };
 
-&can2 {
+&AXON_CAN_B {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan2>;
+	status = "disabled";
 };

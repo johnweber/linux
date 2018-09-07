@@ -25,6 +25,10 @@
 		i2c2 = &AXON_I2C_C;
 		i2c3 = &AXON_I2C_D;
 		i2c4 = &AXON_I2C_BRD_CONF;
+		uart0 = &AXON_UART_A;
+		uart1 = &AXON_UART_B;
+		uart2 = &AXON_UART_C;
+		uart3 = &AXON_UART_BT;
 	};
 
 	sound-hdmi {
@@ -59,35 +63,3 @@
 &pcie {
 	status = "disabled";
 };
-
-/*
-&i2c_gpio_brd_conf {
-	eeprom_baseboard: eeprom@51 {
-		compatible = "at,24c02";
-		reg = <0x51>;
-	};
-};
-
-
-&i2c1 {
-	ov5645_mipi: ov5645_mipi@3c {
-		compatible = "ovti,ov5645_mipi";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_mipi_csi>;
-		reg = <0x3c>;
-		clocks = <&clks 200>;
-		clock-names = "csi_mclk";
-		DOVDD-supply = <&reg_2p5v>;
-		AVDD-supply = <&reg_2p5v>;
-		DVDD-supply = <&reg_1p8v>;
-		pwn-gpios = <&AXON_EXT_GPIO_X3_P67 GPIO_ACTIVE_HIGH>;
-		rst-gpios = <&AXON_EXT_GPIO_X3_P65 GPIO_ACTIVE_LOW>;
-		ipu_id = <0>;
-		csi_id = <0>;
-		mclk = <24000000>;
-		mclk_source = <0>;
-	};
-};
-
-*/
-

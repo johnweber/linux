@@ -14,7 +14,7 @@
 
 / {
 	gpio-axon {
-  	compatible = "gpio-axon";
+		compatible = "gpio-edm";
 
     /* 40-pin expansion */
 
@@ -135,6 +135,22 @@
 		clock-names = "mclk";
 		wlf,shared-lrclk;
 	};
+
+	typec_tusb322:tusb320@47 {
+		compatible = "ti,tusb320";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_gpio_x2_p32>;
+		reg = <0x47>;
+		vbus-supply = <&reg_usb_otg_vbus>;
+		tusb320,int-gpio = <&AXON_EXT_GPIO_X2_P32 GPIO_ACTIVE_LOW>;
+		tusb320,select-mode = <0>;
+		tusb320,dfp-power = <0>;
+	};
+
+	rtc: ds1337 {
+		compatible = "dallas,ds1337";
+		reg = <0x68>;
+	};
 };
 
 &AXON_I2C_B {
@@ -173,6 +189,16 @@
 		compatible = "at,24c02";
 		reg = <0x51>;
 	};
+};
+
+&AXON_UART_B {
+	status = "okay";
+};
+
+&AXON_UART_C {
+	pinctrl-0 = <&pinctrl_axon_uart_c_rtscts>;
+	fsl,uart-has-rtscts;
+	status = "okay";
 };
 
 &AXON_CAN_A {
