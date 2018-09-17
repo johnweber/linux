@@ -287,6 +287,14 @@
 		#reset-cells = <0>;
 	};
 
+	/* SDIO_REG_ON */
+	sdio-reg-on-reset {
+		compatible = "gpio-reset";
+		reset-gpios = <&AXON_INT_GPIO_SDIO_REG_ON GPIO_ACTIVE_HIGH>;
+		reset-delay-us = <1000>;
+		#reset-cells = <0>;
+		initially-in-reset;
+	};
 };
 
 
@@ -321,7 +329,10 @@
 
 &iomuxc {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_hog_1>, <&pinctrl_fabric_reset>;
+	pinctrl-0 = <&pinctrl_hog_1>,
+		<&pinctrl_fabric_reset>,
+		<&pinctrl_wifi_ctrl>,
+		<&pinctrl_bt_ctrl>;
 
 	imx6qdl-axon {
 
