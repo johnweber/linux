@@ -125,6 +125,23 @@
 	};
 };
 
+&iomuxc {
+	pinctrl-0 = AXON_SOM_PINCTRL,
+		<&pinctrl_gpio_x1_p66>,
+		<&pinctrl_gpio_x1_p68>,
+		<&pinctrl_gpio_x1_p70>,
+		<&pinctrl_gpio_x1_p72>,
+		<&pinctrl_gpio_x1_p74>,
+		<&pinctrl_gpio_x1_p76>,
+		<&pinctrl_gpio_x1_p78>,
+		<&pinctrl_gpio_x1_p80>,
+		<&pinctrl_gpio_x2_p18>,
+		<&pinctrl_gpio_x2_p20>,
+		<&pinctrl_gpio_x2_p22>,
+		<&pinctrl_gpio_x2_p24>,
+		<&pinctrl_gpio_x3_p71>;
+};
+
 &AXON_I2C_A {
 	status = "okay";
 
