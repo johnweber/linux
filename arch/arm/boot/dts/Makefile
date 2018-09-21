@@ -345,6 +345,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-nit6xlite.dtb \
 	imx6dl-nitrogen6x.dtb \
 	imx6dl-phytec-pbab01.dtb \
+	imx6dl-pico-qca_pi.dtb \
 	imx6dl-pico_dwarf.dtb \
 	imx6dl-pico_hobbit.dtb \
 	imx6dl-pico_nymph.dtb \
@@ -417,6 +418,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-nitrogen6_max.dtb \
 	imx6q-novena.dtb \
 	imx6q-phytec-pbab01.dtb \
+	imx6q-pico-qca_pi.dtb \
 	imx6q-pico_dwarf.dtb \
 	imx6q-pico_hobbit.dtb \
 	imx6q-pico_nymph.dtb \
@@ -506,6 +508,7 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
 	imx6ul-pico_hobbit.dtb \
 	imx6ul-pico_nymph.dtb \
 	imx6ul-pico_pi.dtb \
+	imx6ul-pico-qca_pi.dtb \
 	imx6ul-tx6ul-0010.dtb \
 	imx6ul-tx6ul-0011.dtb \
 	imx6ul-tx6ul-mainboard.dtb \
@@ -582,7 +585,10 @@ dtb-$(CONFIG_SOC_IMX7D) += \
 	imx7d-pico_nymph.dtb \
 	imx7d-pico_hobbit.dtb \
 	imx7d-pico_pi.dtb \
+	imx7d-pico-qca_pi.dtb \
 	imx7d-pico_pi-m4.dtb \
+	imx7d-edm1-qca_gnome.dtb \
+	imx7d-edm1-qca_gnome-m4.dtb \
 	imx7d-tep1.dtb \
 	imx7d-sdb.dtb \
 	imx7d-sdb-epdc.dtb \
