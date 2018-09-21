@@ -65,11 +65,10 @@
 #define AXON_INT_GPIO_FABRIC_RESET_N gpio2 17 /* EIM_A21 */
 
 #define AXON_SOM_PINCTRL <&pinctrl_hog_1>, \
-		<&pinctrl_fabric_reset>, \
-		<&pinctrl_wifi_ctrl>, \
-		<&pinctrl_bt_ctrl>
+		<&pinctrl_fabric_reset>
 
 #define AXON_PCIE_A pcie
+#define AXON_EXT_GPIO_PCIE_A_RESET gpio1 29 /* ENET_TXD1 */
 
 /* audio codec */
 #define AXON_AUD_A_I2S_CHANNEL ssi1
@@ -154,15 +153,42 @@
 			gpio = <&gpio3 22 GPIO_ACTIVE_HIGH>;
 		};
 
-		wlreg_on: wlreg_on {
+		wl_reg_on: wlreg_on {
 			compatible = "regulator-fixed";
-			regulator-min-microvolt = <5000000>;
-			regulator-max-microvolt = <5000000>;
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
 			regulator-name = "wlreg_on";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_wifi_ctrl>;
 			gpio = <&AXON_INT_GPIO_WL_REG_ON GPIO_ACTIVE_HIGH>;
 			enable-active-high;
 			regulator-always-on;
 		};
+
+                bt_reg_on: btreg_on { 
+                        compatible = "regulator-fixed";
+                        regulator-min-microvolt = <3300000>;
+                        regulator-max-microvolt = <3300000>;
+                        regulator-name = "btreg_on";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_bt_ctrl>;
+                        gpio = <&AXON_INT_GPIO_BT_REG_ON GPIO_ACTIVE_HIGH>;
+                        enable-active-high;
+                        regulator-always-on;
+                };
+
+		sdio_reg_on: sdioreg_on {
+                        compatible = "regulator-fixed";
+                        regulator-min-microvolt = <3300000>;
+                        regulator-max-microvolt = <3300000>;
+                        regulator-name = "sdioreg_on";
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_sdioreg_ctrl>;
+                        gpio = <&AXON_INT_GPIO_SDIO_REG_ON GPIO_ACTIVE_HIGH>;
+                        enable-active-high;
+                        regulator-always-on;
+                };
+
 	};
 
 	sound-hdmi {
@@ -198,6 +224,12 @@
 	};
 
 	mxcfb4: fb@3 {
+		compatible = "fsl,mxc_sdc_fb";
+		disp_dev = "ldb";
+		interface_pix_fmt = "RGB24";
+		default_bpp = <32>;
+		int_clk = <0>;
+		late_init = <0>;
 		status = "disabled";
 	};
 
@@ -208,12 +240,12 @@
 		default_ifmt = "RGB24";
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_ipu1>;
-		status = "disabled";
+		status = "okay";
 	};
 
 	backlight_lcd {
 		compatible = "pwm-backlight";
-		pwms = <&pwm4 0 50000>;
+		pwms = <&pwm2 0 50000>;
 		brightness-levels = <0 36 72 108 144 180 216 255>;
 		default-brightness-level = <6>;
 	};
@@ -291,15 +323,6 @@
 		reset-delay-us = <1000>;
 		#reset-cells = <0>;
 	};
-
-	/* SDIO_REG_ON */
-	sdio-reg-on-reset {
-		compatible = "gpio-reset";
-		reset-gpios = <&AXON_INT_GPIO_SDIO_REG_ON GPIO_ACTIVE_HIGH>;
-		reset-delay-us = <1000>;
-		#reset-cells = <0>;
-		initially-in-reset;
-	};
 };
 
 
@@ -352,17 +375,28 @@
 		pinctrl_wifi_ctrl: wifi_ctrlgrp {
 			fsl,pins = <
 				MX6QDL_PAD_GPIO_18__GPIO7_IO13			0x000b0		  /* WL_REG_ON, GPIO_18 */
-				MX6QDL_PAD_GPIO_16__GPIO7_IO11			0x80000000	/* WL_HOST_WAKE, GPIO_16 */
-				MX6QDL_PAD_ENET_RXD0__XTALOSC_REF_CLK_32K	0x000b0	/* SOC_CLK_32KHZ */
-				MX6QDL_PAD_GPIO_4__GPIO1_IO04       0x000b0     /* SDIO_REG_ON, GPIO_4 */
+				//MX6QDL_PAD_GPIO_16__GPIO7_IO11			0x80000000	/* WL_HOST_WAKE, GPIO_16 */
+				//MX6QDL_PAD_ENET_RXD0__XTALOSC_REF_CLK_32K	0x000b0	/* SOC_CLK_32KHZ */
 			>;
 		};
 
 		pinctrl_bt_ctrl: bt_ctrlgrp {
 			fsl,pins = <
 				MX6QDL_PAD_GPIO_17__GPIO7_IO12		0x000b0		/* BT_REG_ON, GPIO_17 */
-				//MX6QDL_PAD_GPIO_4__GPIO1_IO04		0x000b0		/* moved to WLAN section */
-				MX6QDL_PAD_GPIO_5__GPIO1_IO05   	0x000b0		/* BT_HOST_WAKE, GPIO_5 */
+				//MX6QDL_PAD_GPIO_5__GPIO1_IO05   	0x000b0		/* BT_HOST_WAKE, GPIO_5 */
+			>;
+		};
+
+                pinctrl_sdioreg_ctrl: sdio_ctrlgrp {
+                        fsl,pins = <
+                                MX6QDL_PAD_GPIO_4__GPIO1_IO04       0x000b0     /* SDIO_REG_ON, GPIO_4 */
+                        >;
+                };
+
+
+		pinctrl_pcie_a_reset: pcieagrp {
+			fsl,pins = <
+				MX6QDL_PAD_ENET_TXD1__GPIO1_IO29 	0x130b0		/* PCIE_A_RST_n */
 			>;
 		};
 
@@ -633,6 +667,18 @@
 			>;
 		};
 
+                pinctrl_gpio_x1_p19: gpiox1p19grp {
+                        fsl,pins = <
+                                MX6QDL_PAD_EIM_D20__GPIO3_IO20      0x4001b0b5 /* GPIO_X1_P19 */
+                        >;
+                };
+
+                pinctrl_gpio_x1_p21: gpiox1p21grp {
+                        fsl,pins = <
+                                MX6QDL_PAD_EIM_D19__GPIO3_IO19      0x4001b0b5 /* GPIO_X1_P21 */
+                        >;
+                };
+
 		pinctrl_gpio_x1_p66: gpiox1p66grp {
 			fsl,pins = <
 				MX6QDL_PAD_EIM_A17__GPIO2_IO21	    0x4001b0b5 /* GPIO_X1_P66 */
@@ -836,6 +882,13 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_pwm4>;
 	status = "okay";
+};
+
+&AXON_PCIE_A {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pcie_a_reset>;
+	reset-gpio = <&AXON_EXT_GPIO_PCIE_A_RESET GPIO_ACTIVE_HIGH>;
+	status = "disabled";
 };
 
 &AXON_AUD_A_I2S_CHANNEL {

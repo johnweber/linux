@@ -123,10 +123,17 @@
 			clock-frequency = <24000000>;
 		};
 	};
+
+	/* Turn off LCD interface as we do not support this on Axon-Pi */
+	lcd@0 {
+        	status = "disabled";
+	};
 };
 
 &iomuxc {
 	pinctrl-0 = AXON_SOM_PINCTRL,
+		<&pinctrl_gpio_x1_p19>, /* pinmuxed with UART_B_RTS, use only when UART_B is 2-wire */
+		<&pinctrl_gpio_x1_p21>, /* pinmuxed with UART_B_CTS, use only when UART_B is 2-wire */
 		<&pinctrl_gpio_x1_p66>,
 		<&pinctrl_gpio_x1_p68>,
 		<&pinctrl_gpio_x1_p70>,

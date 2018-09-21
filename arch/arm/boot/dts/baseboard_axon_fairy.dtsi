@@ -1,0 +1,172 @@
+/*
+ * Copyright 2018 Technexion Ltd.
+ *
+ * Author: Tapani Utriainen <tapani@technexion.com>
+ *         Richard Hu <richard.hu@technexion.com>
+ *         John Weber <john.weber@technexion.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+ */
+
+/*
+ * Baseboard device tree for Axon on EDM1-FAIRY using EDM1 adapter
+ */
+
+#include <tnmacro.h>
+
+/ {
+	gpio-axon {
+		compatible = "gpio-edm";
+
+    gpio_x1_p66 {
+			label = "gpio_x1_p66";
+			gpios = <&AXON_EXT_GPIO_X1_P66 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p68 {
+			label = "gpio_x1_p68";
+			gpios = <&AXON_EXT_GPIO_X1_P68 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p70 {
+			label = "gpio_x1_p70";
+			gpios = <&AXON_EXT_GPIO_X1_P70 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p72 {
+			label = "gpio_x1_p72";
+			gpios = <&AXON_EXT_GPIO_X1_P72 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p74 {
+			label = "gpio_x1_p74";
+			gpios = <&AXON_EXT_GPIO_X1_P74 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p76 {
+			label = "gpio_x1_p76";
+			gpios = <&AXON_EXT_GPIO_X1_P76 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p78 {
+			label = "gpio_x1_p78";
+			gpios = <&AXON_EXT_GPIO_X1_P78 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+
+    gpio_x1_p80 {
+			label = "gpio_x1_p80";
+			gpios = <&AXON_EXT_GPIO_X1_P80 GPIO_ACTIVE_HIGH>;
+			dir   = "out";
+		};
+	};
+
+	sound: sound {
+        status = "disabled";
+	};
+
+	clocks {
+		codec_osc: aud_mclk {  /* Note - on AXON pi rev 0.1 MCLK comes from external osc */
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <24000000>;
+		};
+	};
+
+	
+};
+
+&iomuxc {
+        pinctrl-0 = AXON_SOM_PINCTRL,
+                <&pinctrl_gpio_x1_p66>,
+                <&pinctrl_gpio_x1_p68>,
+                <&pinctrl_gpio_x1_p70>,
+                <&pinctrl_gpio_x1_p72>,
+                <&pinctrl_gpio_x1_p74>,
+                <&pinctrl_gpio_x1_p76>,
+                <&pinctrl_gpio_x1_p78>,
+                <&pinctrl_gpio_x1_p80>;
+};
+
+&AXON_PCIE_A {
+	status = "okay";
+};
+
+
+&AXON_I2C_A {
+	status = "okay";
+};
+
+&AXON_I2C_B {
+  status = "okay";
+};
+
+&AXON_I2C_C {
+	status = "okay";
+};
+
+&AXON_I2C_D {
+	status = "okay";
+};
+
+&AXON_I2C_BRD_CONF {
+	status = "okay";
+
+	eeprom_baseboard: eeprom@51 {
+		compatible = "at,24c02";
+		reg = <0x51>;
+	};
+};
+
+&AXON_UART_A {
+	status = "okay";
+};
+
+&AXON_UART_B {
+	status = "okay";
+};
+
+// Used as GPIO
+&AXON_UART_C {
+	status = "disabled";
+};
+
+&AXON_CAN_A {
+	status = "okay";
+};
+
+&AXON_CAN_B {
+	status = "okay";
+};
+
+&AXON_SPI_A {
+	status = "okay";
+
+	spidev@1 {
+		compatible = "rohm,dh2228fv";
+		spi-max-frequency = <60000000>;
+		reg = <0>;
+	};
+};
+
+/*
+&AXON_SPI_B {
+	status = "okay";
+
+	spidev@1 {
+		compatible = "rohm,dh2228fv";
+		spi-max-frequency = <60000000>;
+		reg = <0>;
+	};
+};
+*/
+

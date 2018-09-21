@@ -1,0 +1,71 @@
+/*
+ * Copyright 2016,2017,2018 Technexion Ltd.
+ *
+ * Author: Wig Cheng <wig.cheng@technexion.com>
+ *         Richard Hu <richard.hu@technexion.com>
+ *         Tapani Utriainen <tapani@technexion.com>
+ *         John Weber <john.weber@technexion.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+ */
+/dts-v1/;
+
+#include "imx6dl.dtsi"
+#include "imx6qdl-axon.dtsi"
+#include "baseboard_axon_fairy.dtsi"
+/ {
+	model = "TechNexion AXON-IMX6 DL/Solo and Axon EDM1 adapter and EDM1-FAIRY baseboard";
+	compatible = "fsl,axon-imx6dl", "fsl,imx6dl";
+
+	aliases {
+		i2c0 = &AXON_I2C_A;
+		i2c1 = &AXON_I2C_B;
+		i2c2 = &AXON_I2C_C;
+		i2c3 = &AXON_I2C_D;
+		i2c4 = &AXON_I2C_BRD_CONF;
+		uart0 = &AXON_UART_A;
+		uart1 = &AXON_UART_B;
+		uart2 = &AXON_UART_C;
+		uart3 = &AXON_UART_BT;
+	};
+
+	sound-hdmi {
+		status = "okay";
+	};
+
+	backlight_lcd {
+		pwms = <&pwm2 0 50000>;
+		status = "okay";
+	};
+
+	backlight_lvds {
+                status = "okay";
+        };
+};
+
+&ldb {
+	status = "okay";
+	lvds-channel@0 {
+		crtc = "ipu1-di0";
+	};
+};
+
+&hdmi_audio {
+	status = "okay";
+};
+
+&hdmi_core {
+	status = "okay";
+};
+
+&hdmi_video {
+	status = "okay";
+};
+
+&epdc {
+	status = "disabled";
+};
+
