@@ -71,7 +71,21 @@
 	};
 
 	sound: sound {
-        status = "disabled";
+                compatible = "fsl,imx-sgtl5000",
+                             "fsl,imx-audio-sgtl5000";
+                model = "audio-sgtl5000";
+                ssi-controller = <&AXON_AUD_A_I2S_CHANNEL>;
+                audio-codec = <&codec>;
+                audio-routing =
+                        "MIC_IN", "Mic Jack",
+                        "Mic Jack", "Mic Bias",
+                        "Headphone Jack", "HP_OUT";
+#if defined(AXON_AUD_A_MUX_INT) && defined(AXON_AUD_A_MUX_INT)
+                mux-int-port = <AXON_AUD_A_MUX_INT>;
+                mux-ext-port = <AXON_AUD_A_MUX_EXT>;
+#else
+                fsl,no-audmux = "true";
+#endif
 	};
 
 	clocks {
@@ -112,6 +126,13 @@
 
 &AXON_I2C_C {
 	status = "okay";
+        codec: sgtl5000@0a {
+                compatible = "fsl,sgtl5000";
+                reg = <0x0a>;
+                clocks = <&codec_osc>;
+                VDDA-supply = <&reg_2p5v>;
+                VDDIO-supply = <&reg_3p3v>;
+        };
 };
 
 &AXON_I2C_D {
