@@ -332,6 +332,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-aristainetos2_7.dtb \
 	imx6dl-cubox-i.dtb \
 	imx6dl-edm1_fairy.dtb \
+	imx6dl-edm1-qca_fairy.dtb \
 	imx6dl-edm2_gremlin.dtb \
 	imx6dl-dfi-fs700-m60.dtb \
 	imx6dl-gw51xx.dtb \
@@ -345,6 +346,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-nit6xlite.dtb \
 	imx6dl-nitrogen6x.dtb \
 	imx6dl-phytec-pbab01.dtb \
+	imx6dl-pico-qca_dwarf.dtb \
+	imx6dl-pico-qca_hobbit.dtb \
 	imx6dl-pico-qca_nymph.dtb \
 	imx6dl-pico-qca_pi.dtb \
 	imx6dl-pico_dwarf.dtb \
@@ -401,6 +404,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-dmo-edmqmx6.dtb \
 	imx6q-evi.dtb \
 	imx6q-edm1_fairy.dtb \
+	imx6q-edm1-qca_fairy.dtb \
 	imx6q-edm2_gremlin.dtb \
 	imx6q-gk802.dtb \
 	imx6q-gw51xx.dtb \
@@ -419,6 +423,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-nitrogen6_max.dtb \
 	imx6q-novena.dtb \
 	imx6q-phytec-pbab01.dtb \
+	imx6q-pico-qca_dwarf.dtb \
+	imx6q-pico-qca_hobbit.dtb \
 	imx6q-pico-qca_nymph.dtb \
 	imx6q-pico-qca_pi.dtb \
 	imx6q-pico_dwarf.dtb \
@@ -452,6 +458,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-wandboard.dtb \
 	imx6q-wandboard-revb1.dtb \
 	imx6qp-edm1_fairy.dtb \
+	imx6qp-edm1-qca_fairy.dtb \
 	imx6qp-nitrogen6_max.dtb \
 	imx6qp-sabreauto.dtb \
 	imx6qp-sabreauto-ecspi.dtb \
@@ -506,11 +513,14 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
 	imx6ul-14x14-evk-gpmi-weim.dtb \
 	imx6ul-14x14-evk-usb-certi.dtb \
 	imx6ul-geam-kit.dtb \
+	imx6ul-pico-qca_dwarf.dtb \
+	imx6ul-pico-qca_hobbit.dtb \
+	imx6ul-pico-qca_nymph.dtb \
+	imx6ul-pico-qca_pi.dtb \
 	imx6ul-pico_dwarf.dtb \
 	imx6ul-pico_hobbit.dtb \
 	imx6ul-pico_nymph.dtb \
 	imx6ul-pico_pi.dtb \
-	imx6ul-pico-qca_pi.dtb \
 	imx6ul-tx6ul-0010.dtb \
 	imx6ul-tx6ul-0011.dtb \
 	imx6ul-tx6ul-mainboard.dtb \
@@ -583,11 +593,15 @@ dtb-$(CONFIG_SOC_IMX7D) += \
 	imx7d-12x12-lpddr3-arm2-mqs.dtb \
 	imx7d-12x12-lpddr3-arm2-pcie.dtb \
 	imx7d-19x19-lpddr2-arm2.dtb \
-	imx7d-pico_dwarf.dtb \
-	imx7d-pico_nymph.dtb \
-	imx7d-pico_hobbit.dtb \
-	imx7d-pico_pi.dtb \
+	imx7d-pico-qca_dwarf.dtb \
+	imx7d-pico-qca_hobbit.dtb \
+	imx7d-pico-qca_nymph.dtb \
 	imx7d-pico-qca_pi.dtb \
+	imx7d-pico-qca_pi-m4.dtb \
+	imx7d-pico_dwarf.dtb \
+	imx7d-pico_hobbit.dtb \
+	imx7d-pico_nymph.dtb \
+	imx7d-pico_pi.dtb \
 	imx7d-pico_pi-m4.dtb \
 	imx7d-edm1-qca_gnome.dtb \
 	imx7d-edm1-qca_gnome-m4.dtb \
