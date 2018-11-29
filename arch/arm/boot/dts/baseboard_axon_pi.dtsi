@@ -72,9 +72,10 @@
 		compatible = "fsl,imx-audio-wm8960";
 		model = "wm8960-audio";
 		audio-cpu = <&AXON_AUD_A_I2S_CHANNEL>;
+	//	cpu-dai = <&AXON_AUD_A_I2S_CHANNEL>;
 		audio-codec = <&codec>;
 		asrc-controller = <&asrc>;
-		//gpr = <&gpr 4 0x100000 0x100000>;
+		gpr = <&gpr 4 0x100000 0x100000>;
 		/*
                  * hp-det = <hp-det-pin hp-det-polarity>;
 		 * hp-det-pin: JD1 JD2  or JD3
@@ -84,6 +85,7 @@
 		//hp-det = <3 0>;  /* JD3, Headphone */
 		//hp-det-gpios = <&AXON_EXT_GPIO_X2_P43 0>;
 		//mic-det-gpios = <&AXON_EXT_GPIO_X2_P43 0>;
+		codec-master;
 		audio-routing =
 			"Headphone Jack", "HP_L",
 			"Headphone Jack", "HP_R",
@@ -93,11 +95,11 @@
 			"Ext Spk", "SPK_RN",
 			"LINPUT2", "Mic Jack",
 			"LINPUT3", "Mic Jack",
-			"Mic Jack", "MICB",
-			"CPU-Playback", "ASRC-Playback",
-			"Playback", "CPU-Playback",
-			"ASRC-Capture", "CPU-Capture",
-			"CPU-Capture", "Capture";
+			"Mic Jack", "MICB";
+//			"CPU-Playback", "ASRC-Playback",
+//			"Playback", "CPU-Playback",
+//			"ASRC-Capture", "CPU-Capture",
+//			"CPU-Capture", "Capture";
 #if defined(AXON_AUD_A_MUX_INT) && defined(AXON_AUD_A_MUX_EXT)
 		mux-int-port = <AXON_AUD_A_MUX_INT>;
 		mux-ext-port = <AXON_AUD_A_MUX_EXT>;
@@ -120,7 +122,7 @@
 		codec_osc: aud_mclk {  /* Note - on AXON pi rev 0.1 MCLK comes from external osc */
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
-			clock-frequency = <24000000>;
+			clock-frequency = <22579200>;
 		};
 	};
 
@@ -155,7 +157,8 @@
 	codec: wm8960@1a {
 		compatible = "wlf,wm8960";
 		reg = <0x1a>;
-		clocks = <&clks IMX6QDL_CLK_CKO>;  /* Note: This is a dummy.  on AXON-PI the clock is external osc */
+		clocks = <&codec_osc>;  /* Note:  AXON-PI the clock is external osc */
+	//	clocks = <&clks IMX6QDL_CLK_CKO>;
 		clock-names = "mclk";
 		wlf,shared-lrclk;
 	};
