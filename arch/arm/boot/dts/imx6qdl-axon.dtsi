@@ -916,7 +916,8 @@
 &AXON_UART_BT {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_axon_uart_bt>;
-	fsl,uart-has-rtscts;
+	uart-has-rtscts;
+	fsl,dte-mode;
 	status = "okay";
 };
 
