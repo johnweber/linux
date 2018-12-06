@@ -13,6 +13,18 @@
 #include <tnmacro.h>
 
 / {
+	aliases {
+		i2c0 = &AXON_I2C_A;
+                i2c1 = &AXON_I2C_B;
+                i2c2 = &AXON_I2C_C;
+                i2c3 = &AXON_I2C_D;
+                i2c4 = &AXON_I2C_BRD_CONF;
+                uart0 = &AXON_UART_A;
+                uart1 = &AXON_UART_B;
+                uart3 = &AXON_UART_C;
+                uart4 = &AXON_UART_BT;
+        };
+
 	gpio-axon {
 		compatible = "gpio-edm";
 
