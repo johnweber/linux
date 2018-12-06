@@ -332,7 +332,9 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-aristainetos2_7.dtb \
 	imx6dl-cubox-i.dtb \
 	imx6dl-edm1_fairy.dtb \
+	imx6dl-edm1_gnome.dtb \
 	imx6dl-edm1-qca_fairy.dtb \
+	imx6dl-edm1-qca_gnome.dtb \
 	imx6dl-edm2_gremlin.dtb \
 	imx6dl-dfi-fs700-m60.dtb \
 	imx6dl-gw51xx.dtb \
@@ -366,6 +368,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-sabresd-btwifi.dtb \
 	imx6dl-sabresd-hdcp.dtb \
 	imx6dl-sabresd-ldo.dtb \
+	imx6dl-tek3.dtb \
 	imx6dl-ts4900.dtb \
 	imx6dl-tx6dl-comtft.dtb \
 	imx6dl-tx6s-8034.dtb \
@@ -404,7 +407,9 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-dmo-edmqmx6.dtb \
 	imx6q-evi.dtb \
 	imx6q-edm1_fairy.dtb \
+	imx6q-edm1_gnome.dtb \
 	imx6q-edm1-qca_fairy.dtb \
+	imx6q-edm1-qca_gnome.dtb \
 	imx6q-edm2_gremlin.dtb \
 	imx6q-gk802.dtb \
 	imx6q-gw51xx.dtb \
@@ -444,6 +449,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-sabresd-ldo.dtb \
 	imx6q-sabresd-enetirq.dtb \
 	imx6q-sbc6x.dtb \
+	imx6q-tek3.dtb \
 	imx6q-tbs2910.dtb \
 	imx6q-ts4900.dtb \
 	imx6q-tx6q-1010.dtb \
@@ -458,7 +464,9 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-wandboard.dtb \
 	imx6q-wandboard-revb1.dtb \
 	imx6qp-edm1_fairy.dtb \
+	imx6qp-edm1_gnome.dtb \
 	imx6qp-edm1-qca_fairy.dtb \
+	imx6qp-edm1-qca_gnome.dtb \
 	imx6qp-nitrogen6_max.dtb \
 	imx6qp-sabreauto.dtb \
 	imx6qp-sabreauto-ecspi.dtb \
@@ -521,6 +529,7 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
 	imx6ul-pico_hobbit.dtb \
 	imx6ul-pico_nymph.dtb \
 	imx6ul-pico_pi.dtb \
+	imx6ul-tek3.dtb \
 	imx6ul-tx6ul-0010.dtb \
 	imx6ul-tx6ul-0011.dtb \
 	imx6ul-tx6ul-mainboard.dtb \
