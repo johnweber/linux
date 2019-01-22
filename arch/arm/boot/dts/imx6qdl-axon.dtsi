@@ -18,10 +18,10 @@
 
 #define AXON_EXT_GPIO_X1_P39 gpio1 9  /* GPIO1_9 */
 
-#define AXON_EXT_GPIO_X1_P66 gpio2 21 /* EIM_A17 */
-#define AXON_EXT_GPIO_X1_P68 gpio2 20 /* EIM_A18 */
-#define AXON_EXT_GPIO_X1_P70 gpio2 19 /* EIM_A19 */
-#define AXON_EXT_GPIO_X1_P72 gpio2 18 /* EIM_A20 */
+#define AXON_EXT_GPIO_X1_P66 gpio5 4  /* EIM_A24 */
+#define AXON_EXT_GPIO_X1_P68 gpio2 28 /* EIM_EB0 */
+#define AXON_EXT_GPIO_X1_P70 gpio2 29 /* EIM_EB1 */
+#define AXON_EXT_GPIO_X1_P72 gpio5 0  /* EIM_WAIT */
 #define AXON_EXT_GPIO_X1_P74 gpio3 26 /* EIM_D26 */
 #define AXON_EXT_GPIO_X1_P76 gpio3 27 /* EIM_D27 */
 #define AXON_EXT_GPIO_X1_P78 gpio3 30 /* EIM_D30 */
@@ -58,11 +58,15 @@
 #define AXON_I2C_D_SCL 	      gpio6 9  /* NANDF_WP_B */
 #define AXON_I2C_D_SDA        gpio6 16 /* NANDF_CS3 */
 
-#define AXON_INT_GPIO_WL_REG_ON   gpio7 13 /* GPIO_18 */
-#define AXON_INT_GPIO_SDIO_REG_ON gpio1  4 /* GPIO_4  */
-#define AXON_INT_GPIO_BT_REG_ON   gpio7 12 /* GPIO_17 */
-#define AXON_INT_GPIO_SOC_STATUS_LED gpio6 14 /* NANDF_CS1 */
-#define AXON_INT_GPIO_FABRIC_RESET_N gpio2 17 /* EIM_A21 */
+#define AXON_INT_GPIO_WL_REG_ON      gpio2 21  /* EIM_A17 */ 
+#define AXON_INT_GPIO_SDIO_REG_ON    gpio2 17  /* EIM_A22 */ 
+#define AXON_INT_GPIO_BT_REG_ON      gpio6 6   /* EIM_A23 */   
+#define AXON_INT_GPIO_BT_HOST_WAKE   gpio7 12  /* GPIO_17 */
+#define AXON_INT_GPIO_SOC_STATUS_LED gpio6 14  /* NANDF_CS1 */
+#define AXON_INT_GPIO_FABRIC_RESET_N gpio2 17  /* EIM_A21 */
+#define AXON_INT_GPIO_ENET_PWR_EN    gpio7 13  /* GPIO_18 */
+#define AXON_INT_FABRIC_GPIO_INT0_N  gpio1  4  /* GPIO_4  */
+#define AXON_INT_FABRIC_GPIO_INT1_N  gpio1  5  /* GPIO_5  */
 
 #define AXON_SOM_PINCTRL <&pinctrl_hog_1>, \
 		<&pinctrl_fabric_reset>
@@ -374,7 +378,7 @@
 
 		pinctrl_wifi_ctrl: wifi_ctrlgrp {
 			fsl,pins = <
-				MX6QDL_PAD_GPIO_18__GPIO7_IO13			0x000b0		  /* WL_REG_ON, GPIO_18 */
+				MX6QDL_PAD_EIM_A17__GPIO2_IO21			0x000b0		  /* WL_REG_ON, EIM_A17 */
 				//MX6QDL_PAD_GPIO_16__GPIO7_IO11			0x80000000	/* WL_HOST_WAKE, GPIO_16 */
 				//MX6QDL_PAD_ENET_RXD0__XTALOSC_REF_CLK_32K	0x000b0	/* SOC_CLK_32KHZ */
 			>;
@@ -382,16 +386,16 @@
 
 		pinctrl_bt_ctrl: bt_ctrlgrp {
 			fsl,pins = <
-				MX6QDL_PAD_GPIO_17__GPIO7_IO12		0x000b0		/* BT_REG_ON, GPIO_17 */
-				//MX6QDL_PAD_GPIO_5__GPIO1_IO05   	0x000b0		/* BT_HOST_WAKE, GPIO_5 */
+				MX6QDL_PAD_EIM_A23__GPIO6_IO06		0x000b0		/* BT_REG_ON, EIM_A23 */
+				//MX6QDL_PAD_GPIO_17__GPIO7_IO12   	0x000b0		/* BT_HOST_WAKE, GPIO_17 */
 			>;
 		};
 
-                pinctrl_sdioreg_ctrl: sdio_ctrlgrp {
-                        fsl,pins = <
-                                MX6QDL_PAD_GPIO_4__GPIO1_IO04       0x000b0     /* SDIO_REG_ON, GPIO_4 */
-                        >;
-                };
+		pinctrl_sdioreg_ctrl: sdio_ctrlgrp {
+			fsl,pins = <
+				MX6QDL_PAD_EIM_A22__GPIO2_IO16       0x000b0     /* SDIO_REG_ON, EIM_A22 */
+			>;
+		};
 
 
 		pinctrl_pcie_a_reset: pcieagrp {
@@ -576,10 +580,10 @@
 		};
 
 		pinctrl_axon_uart_c: uart4grp {
-				fsl,pins = <
-						MX6QDL_PAD_CSI0_DAT13__UART4_TX_DATA    0x1b0b1 /* UART_C_TXD */
-						MX6QDL_PAD_CSI0_DAT12__UART4_RX_DATA    0x1b0b1 /* UART_C_RXD */
-				>;
+			fsl,pins = <
+				MX6QDL_PAD_CSI0_DAT13__UART4_TX_DATA    0x1b0b1 /* UART_C_TXD */
+				MX6QDL_PAD_CSI0_DAT12__UART4_RX_DATA    0x1b0b1 /* UART_C_RXD */
+			>;
 		};
 
 		pinctrl_axon_uart_c_rtscts: uart4rtsctsgrp {
@@ -662,44 +666,44 @@
 		pinctrl_mipi_csi: mipicsigrp {
 			fsl,pins = <
 				MX6QDL_PAD_GPIO_6__GPIO1_IO06		0x0b0b0		/* ov5640 mipi powerdown */
-				MX6QDL_PAD_GPIO_19__GPIO4_IO05	0x0b0b0		/* ov5640 mipi reset */
+				MX6QDL_PAD_GPIO_19__GPIO4_IO05		0x0b0b0		/* ov5640 mipi reset */
 				MX6QDL_PAD_GPIO_3__CCM_CLKO2		0x000b0		/* ov5640 mclk */
 			>;
 		};
 
-                pinctrl_gpio_x1_p19: gpiox1p19grp {
-                        fsl,pins = <
-                                MX6QDL_PAD_EIM_D20__GPIO3_IO20      0x4001b0b5 /* GPIO_X1_P19 */
-                        >;
-                };
+        pinctrl_gpio_x1_p19: gpiox1p19grp {
+			fsl,pins = <
+				MX6QDL_PAD_EIM_D20__GPIO3_IO20      0x4001b0b5 /* GPIO_X1_P19 */
+			>;
+		};
 
-                pinctrl_gpio_x1_p21: gpiox1p21grp {
-                        fsl,pins = <
-                                MX6QDL_PAD_EIM_D19__GPIO3_IO19      0x4001b0b5 /* GPIO_X1_P21 */
-                        >;
-                };
+		pinctrl_gpio_x1_p21: gpiox1p21grp {
+			fsl,pins = <
+				MX6QDL_PAD_EIM_D19__GPIO3_IO19      0x4001b0b5 /* GPIO_X1_P21 */
+			>;
+		};
 
 		pinctrl_gpio_x1_p66: gpiox1p66grp {
 			fsl,pins = <
-				MX6QDL_PAD_EIM_A17__GPIO2_IO21	    0x4001b0b5 /* GPIO_X1_P66 */
+				MX6QDL_PAD_EIM_A24__GPIO5_IO04	    0x4001b0b5 /* GPIO_X1_P66, EIM_A24 */
 			>;
 		};
 
 		pinctrl_gpio_x1_p68: gpiox1p68grp {
 			fsl,pins = <
-				MX6QDL_PAD_EIM_A18__GPIO2_IO20	    0x4001b0b5 /* GPIO_X1_P68 */
+				MX6QDL_PAD_EIM_EB0__GPIO2_IO28	    0x4001b0b5 /* GPIO_X1_P68, EIM_EB0 */
 			>;
 		};
 
 		pinctrl_gpio_x1_p70: gpiox1p70grp {
 			fsl,pins = <
-				MX6QDL_PAD_EIM_A19__GPIO2_IO19	    0x4001b0b5 /* GPIO_X1_P70 */
+				MX6QDL_PAD_EIM_EB1__GPIO2_IO29	    0x4001b0b5 /* GPIO_X1_P70, EIM_EB1 */
 			>;
 		};
 
 		pinctrl_gpio_x1_p72: gpiox1p72grp {
 			fsl,pins = <
-				MX6QDL_PAD_EIM_A20__GPIO2_IO18	    0x4001b0b5 /* GPIO_X1_P72 */
+				MX6QDL_PAD_EIM_WAIT__GPIO5_IO00	    0x4001b0b5 /* GPIO_X1_P72, EIM_WAIT */
 			>;
 		};
 
