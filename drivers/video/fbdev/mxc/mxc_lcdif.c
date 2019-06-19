@@ -48,6 +48,12 @@ static struct fb_videomode lcdif_modedb[] = {
 	FB_SYNC_CLK_LAT_FALL,
 	FB_VMODE_NONINTERLACED,
 	0,},
+	{
+	/* 320x240 @ 60 Hz */
+	"FENIEX-QVGA", 60, 320, 240, 153846, 68, 20, 18, 4, 2, 2,
+	0,
+	FB_VMODE_NONINTERLACED,
+	0,},
 };
 static int lcdif_modedb_sz = ARRAY_SIZE(lcdif_modedb);
 

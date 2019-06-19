@@ -65,6 +65,7 @@
 	};
 
 	sound {
+		status = "disabled";
 		compatible = "fsl,imx-sgtl5000",
 			     "fsl,imx-audio-sgtl5000";
 		model = "audio-sgtl5000";
@@ -83,6 +84,7 @@
 	};
 
 	gpio-leds {
+		status = "disabled";
 		compatible = "gpio-leds";
 
 		led {
@@ -105,7 +107,7 @@
 };
 
 &PICO_I2CA {
-	status = "okay";
+	status = "disabled";
 
 	codec: sgtl5000@0a {
 		compatible = "fsl,sgtl5000";
@@ -142,8 +144,8 @@
 		interrupt-parent = <&GPIO_BANK(PICO_EXT_GPIO_P44)>; /* PICO_P44 */
 		interrupts = <GPIO_NO(PICO_EXT_GPIO_P44) 0>;
 		reset-gpios = <&PICO_EXT_GPIO_P32 GPIO_ACTIVE_LOW>; /* PICO_P32 */
-		touchscreen-size-x = <800>;
-		touchscreen-size-y = <480>;
+		touchscreen-size-x = <320>;
+		touchscreen-size-y = <240>;
 	};
 };
 
@@ -153,11 +155,11 @@
 };
 
 &PICO_CANA {
-	status = "okay";
+	status = "disabled";
 };
 
 &PICO_CANB {
-	status = "okay";
+	status = "disabled";
 };
 
 &PICO_SPIA {
